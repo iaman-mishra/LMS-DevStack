@@ -2,9 +2,7 @@ import React from 'react'
 
 const MyEnrollments = () => {
   return (
-    <div>
-      MyEnrollment
-    </div>
+    <div>MyEnrollments</div>
   )
 }
 
