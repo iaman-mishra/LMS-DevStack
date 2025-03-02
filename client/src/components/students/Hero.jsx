@@ -1,5 +1,6 @@
 import React from "react";
 import { assets } from "../../assets/assets";
+import SearchBar from "./SearchBar";
 
 const Hero = () => {
   return (
@@ -21,6 +22,8 @@ const Hero = () => {
         supportive community to help you achieve your personal and professional
         goals.
       </p>
+
+      <SearchBar/>
     </div>
   );
 };
