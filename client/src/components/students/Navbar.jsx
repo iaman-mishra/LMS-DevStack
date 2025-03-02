@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../../assets/assets.js";
 import { Link, useLocation } from "react-router-dom";
 import { useClerk, useUser, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import logo from '../../assets/logo.png'
+import { AppContext } from "../../context/AppContext.jsx";
 
 const Navbar = () => {
 
@@ -10,6 +11,7 @@ const Navbar = () => {
   const isCouseListPage = location.pathname.includes('/course-list')
   const { openSignIn } = useClerk();
   const { user } = useUser();
+  const {navigate} = useContext(AppContext);
 
   return (
     <div className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${isCouseListPage ? 'bg-white' : 'bg-cyan-100/70'}`}>
@@ -18,6 +20,7 @@ const Navbar = () => {
           src={logo}
           alt="logo"
           className=" h-[30px] sm:h-[35px] cursor-pointer"
+          onClick={()=>navigate('/')}
         />
         <h1 className="font-bold text-gray-700 text-lg sm:text-2xl ">DevStack-LMS</h1>
       </div>
