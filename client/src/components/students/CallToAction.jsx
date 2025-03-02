@@ -13,10 +13,10 @@ const CallToAction = () => {
         Start your journey to success today.
       </p>
       <div className="flex items-center gap-6 font-medium mt-4 justify-center">
-        <button className="bg-blue-600 text-white px-10 py-3 rounded-md sm:text-sm">
+        <button className="bg-blue-600 text-white px-6 py-3 sm:px-10 sm:py-3 rounded-md text-xs sm:text-sm">
           Get Started
         </button>
-        <button className="px-10 py-3 rounded-md flex items-center gap-2 bg-white text-black border border-gray-300 sm:text-sm">
+        <button className="px-6 py-3 sm:px-10 sm:py-3 rounded-md flex items-center gap-2 bg-white text-black border border-gray-300 text-xs sm:text-sm">
           Learn More <img src={assets.arrow_icon} alt="arrow_icon" />
         </button>
       </div>
