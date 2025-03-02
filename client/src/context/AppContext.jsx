@@ -9,6 +9,7 @@ export const AppContextProvider = (props) => {
   const [allCourses, SetAllCourses] = useState([]);
   const navigate = useNavigate();
 
+  // function to fetch all courses
   const fetchAllCouses = async () => {
     SetAllCourses(dummyCourses);
   };
@@ -17,10 +18,23 @@ export const AppContextProvider = (props) => {
     fetchAllCouses();
   }, []);
 
+  // Function to calculate average rating of course
+  const calculateRating = (course) => {
+    if(course.courseRatings.length === 0){
+        return 0;
+    }
+    let totalRating = 0;
+    course.courseRatings.forEach(item => {
+        totalRating += item.rating;
+    })
+    return totalRating/course.courseRatings.length;
+  }
+
   const value = {
     currency,
     allCourses,
-    navigate
+    navigate,
+    calculateRating
   };
 
   return (
