@@ -31,7 +31,7 @@ const Navbar = () => {
           alt="logo"
           className=" h-[30px] sm:h-[35px] cursor-pointer"
         />
-        <h1 className="font-bold text-gray-700 text-lg sm:text-2xl ">
+        <h1 className="font-bold text-gray-700 text-lg sm:text-2xl cursor-pointer">
           DevStack-LMS
         </h1>
       </div>

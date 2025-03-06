@@ -9,14 +9,13 @@ const Footer = () => {
     <footer className="bg-[#111820] md:px-36 text-left w-full mt-10">
       <div className="flex flex-col md:flex-row items-start px-8 md:px-0 justify-center gap-10 md:gap-32 py-10 border-b border-white/30 ">
         <div className=" flex flex-col md:items-start items-center w-full">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" onClick={() => navigate("/")}>
             <img
               src={logo}
               alt="logo"
               className=" h-[25px] sm:h-[30px] cursor-pointer"
-              onClick={() => navigate("/")}
             />
-            <h1 className="font-bold text-white text-lg sm:text-2xl ">
+            <h1 className="font-bold text-white text-lg sm:text-2xl cursor-pointer ">
               DevStack-LMS
             </h1>
           </div>
