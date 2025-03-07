@@ -9,6 +9,7 @@ export const AppContextProvider = (props) => {
   const [allCourses, SetAllCourses] = useState([]);
   const navigate = useNavigate();
   const [isEducator , SetIsEducator]=useState(true);
+  const [enrolledCourses, SetEnrolledCourses]=useState([]);
 
   // function to fetch all courses
   const fetchAllCouses = async () => {
@@ -17,6 +18,7 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     fetchAllCouses();
+    fetchEnrolledCourses();
   }, []);
 
   // Function to calculate average rating of course
@@ -56,6 +58,11 @@ export const AppContextProvider = (props) => {
     return totalLectures;
   }
 
+  // Function to fetch enrolled courses
+  const fetchEnrolledCourses = async () => {
+    SetEnrolledCourses(dummyCourses);
+  }
+
   const value = {
     currency,
     allCourses,
@@ -65,7 +72,9 @@ export const AppContextProvider = (props) => {
     SetIsEducator,
     calculateChapterTime,
     calculateCourseDuration,
-    calculateNoOfLectures
+    calculateNoOfLectures,
+    enrolledCourses,
+    fetchEnrolledCourses,
   };
 
   return (
