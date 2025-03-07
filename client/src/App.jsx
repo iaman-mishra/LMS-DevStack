@@ -32,14 +32,14 @@ const App = () => {
 
         <Route path='/educator' element={<Educator />}>
           <Route path='/educator' element={<Dashboard />} />
-          <Route path='add-course' element={<AddCouse />} />
+          <Route path='add-courses' element={<AddCouse />} />
           <Route path='my-courses' element={<MyCouses />} />
           <Route path='student-enrolled' element={<StudentsEnrolled />} />
 
         </Route>
 
       </Routes>
-      <Footer />
+      {!isEducatorRoute && <Footer />}
     </div>
   )
 }
