@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import {Line} from 'rc-progress'
 
 const MyEnrollments = () => {
   const { enrolledCourses, calculateCourseDuration, navigate } = useContext(AppContext);
@@ -39,6 +40,7 @@ const MyEnrollments = () => {
                   />
                   <div className="flex-1">
                     <p className="mb-1 max-sm:text-sm">{course.courseTitle}</p>
+                    <Line strokeWidth={2} percent={progressArray[index] ? (progressArray[index].lectureCompleted / progressArray[index].totalLectures) * 100 : 0} className="bg-gray-300 rounded-full" />
                   </div>
                 </td>
                 <td className="px-4 py-3 max-sm:hidden">{calculateCourseDuration(course)}</td>
