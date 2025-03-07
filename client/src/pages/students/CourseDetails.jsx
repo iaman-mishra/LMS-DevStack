@@ -83,11 +83,13 @@ const CourseDetails = () => {
             {corseData.courseContent.map((chapter, index) => (
               <div
                 key={index}
-                className="border border-gray-300 bg-white mb-2 rounded">
-                <div className="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
-                  <div
-                    className="flex items-center gap-2"
-                    onClick={() => toggleSection(index)}>
+                className="border border-gray-300 bg-white mb-2 rounded"
+              >
+                <div
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer select-none"
+                  onClick={() => toggleSection(index)}
+                >
+                  <div className="flex items-center gap-2">
                     <img
                       className={`transform transition-transform ${openSection[index] ? "rotate-180" : ""}`}
                       src={assets.down_arrow_icon}
@@ -107,7 +109,8 @@ const CourseDetails = () => {
                     {chapter.chapterContent.map((lecture, index) => (
                       <li
                         key={index}
-                        className="flex items-center gap-2 py-1">
+                        className="flex items-center gap-2 py-1"
+                      >
                         <img
                           src={assets.play_icon}
                           alt="play icon"
@@ -123,7 +126,8 @@ const CourseDetails = () => {
                                     videoId: lecture.lectureUrl.split("/").pop(),
                                   })
                                 }
-                                className="text-blue-500 cursor-pointer">
+                                className="text-blue-500 cursor-pointer"
+                              >
                                 Preview
                               </p>
                             )}
