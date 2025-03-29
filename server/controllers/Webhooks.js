@@ -23,14 +23,14 @@ export const clerkWebhooks = async (req, res) => {
                 res.json({})
                 break;
             }
-            case 'user.updated':{
+            case 'user.updated': {
                 const userData = {
-                    email: data.email_address[0].email_address,
+                    email: data.email_addresses[0].email_address,
                     name: data.first_name + ' ' + data.last_name,
                     imageURl: data.image_url,
-                }
+                };
                 await User.findByIdAndUpdate(data.id, userData);
-                res.json({})
+                res.json({});
                 break;
             }
             case 'user.deleted':{
