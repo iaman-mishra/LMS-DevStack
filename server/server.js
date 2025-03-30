@@ -6,12 +6,14 @@ import { clerkWebhooks } from './controllers/Webhooks.js';
 
 // Initialize express
 const app = express();
+ 
 
 // Connect to MongoDB
 await connectDB();
 
 // Middleware
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => res.send('Server is working!'));
 app.post('/clerk', express.json(), clerkWebhooks);
