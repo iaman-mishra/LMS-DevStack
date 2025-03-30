@@ -15,12 +15,11 @@ export const getCourseId = async (req,res)=>{
     const {id} = req.params
     try {
         const courseData = await Course.findById(id).populate({path:'educator'})
-        // remove url if preview fasle
+        // remove url if preview false
         courseData.courseContent.forEach(chapter => {
             chapter.chapterContent.forEach(lecture => {
                 if (!lecture.isPreviewFree) {
-                    lecture.lectureUrl = '',
-
+                    lecture.lectureUrl = '';
                 }
             })
         })
