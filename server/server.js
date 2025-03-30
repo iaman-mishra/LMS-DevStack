@@ -6,6 +6,7 @@ import { clerkWebhooks } from './controllers/Webhooks.js';
 import educatorRouter from './routes/educatorRoutes.js';
 import { clerkMiddleware } from '@clerk/express';
 import connectCloudinary from './config/cloudinary.js';
+import courseRouter from './routes/courseRoute.js';
 
 // Initialize express
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.get('/', (req, res) => res.send('Server is working!'));
 app.post('/clerk', clerkWebhooks);
 app.use('/api/educator', educatorRouter);
+app.use('/api/course', courseRouter);
 
 const PORT = process.env.PORT || 5000;
 
