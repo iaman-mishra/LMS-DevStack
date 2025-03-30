@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('Server is working!'));
-app.post('/clerk', express.json(), clerkWebhooks);
+app.post('/clerk', clerkWebhooks);
 
 const PORT = process.env.PORT || 5000;
 
