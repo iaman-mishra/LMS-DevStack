@@ -1,13 +1,16 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { dummyCourses } from "../assets/assets";
 export const AppContext = createContext();
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 export const AppContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [allCourses, SetAllCourses] = useState([]);
   const navigate = useNavigate();
+  const {getToken} = useAuth();
+  const {user} = useUser();
   const [isEducator , SetIsEducator]=useState(true);
   const [enrolledCourses, SetEnrolledCourses]=useState([]);
 
@@ -21,14 +24,23 @@ export const AppContextProvider = (props) => {
     fetchEnrolledCourses();
   }, []);
 
+  const logToken = async ()=> {
+    console.log(await getToken());
+  }
+  useEffect(() => {
+    if (user) {
+      logToken();
+    }
+  },[user]);
+
   // Function to calculate average rating of course
   const calculateRating = (course) => {
     if(course.courseRatings.length === 0){
-        return 0;
+      return 0;
     }
     let totalRating = 0;
     course.courseRatings.forEach(item => {
-        totalRating += item.rating;
+      totalRating += item.rating;
     })
     return totalRating/course.courseRatings.length;
   }
