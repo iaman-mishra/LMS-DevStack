@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { assets } from "../../assets/assets.js";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 import {
   useClerk,
   useUser,
@@ -11,13 +12,35 @@ import {
 } from "@clerk/clerk-react";
 import logo from "../../assets/logo.png";
 import { AppContext } from "../../context/AppContext.jsx";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const location = useLocation();
   const isCouseListPage = location.pathname.includes("/course-list");
   const { openSignIn } = useClerk();
   const { user } = useUser();
-  const { navigate, isEducator, SetIsEducator } = useContext(AppContext);
+  const { navigate, isEducator, SetIsEducator, backendUrl, getToken } = useContext(AppContext);
+
+  const becomeEducator = async () => {
+    try {
+      if (isEducator) {
+        navigate("/educator");
+        return;
+      }
+      const token = await getToken();
+      const { data } = await axios.get(backendUrl + "/api/educator/update-role", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!data.success) {
+        SetIsEducator(true);
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(data.message);
+    }
+  };
 
   return (
     <div
@@ -26,20 +49,14 @@ const Navbar = () => {
       }`}
     >
       <div className="flex items-center gap-1 " onClick={() => navigate("/")}>
-        <img
-          src={logo}
-          alt="logo"
-          className=" h-[30px] sm:h-[35px] cursor-pointer"
-        />
-        <h1 className="font-bold text-gray-700 text-lg sm:text-2xl cursor-pointer">
-          DevStack-LMS
-        </h1>
+        <img src={logo} alt="logo" className=" h-[30px] sm:h-[35px] cursor-pointer" />
+        <h1 className="font-bold text-gray-700 text-lg sm:text-2xl cursor-pointer">DevStack-LMS</h1>
       </div>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user && (
             <>
-              <button onClick={() => navigate("/educator")}>
+              <button onClick={becomeEducator}>
                 {isEducator ? "Educator Dashboard" : "Become Educator"}
               </button>
               | <Link to="/my-enrollments">My Enrollments</Link>
