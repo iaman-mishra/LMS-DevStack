@@ -18,7 +18,7 @@ const AddCouse = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [currentChapterId, setCurrentChapterId] = useState(null);
 
-  const {backendUrl, getToken} = useContext(AppContext);
+  const { backendUrl, getToken } = useContext(AppContext);
 
   const [lectureDetails, setLectureDetails] = useState({
     lectureTitle: "",
@@ -94,42 +94,53 @@ const AddCouse = () => {
     });
   };
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (!image) {
-        toast.error("Thumbnail not selected")
+        toast.error("Thumbnail not selected");
+        return;
       }
+
       const courseData = {
         courseTitle,
         courseDescription: quillRef.current.root.innerHTML,
         coursePrice: Number(coursePrice),
         discount: Number(discount),
         courseContent: chapters,
-      }
+      };
 
-      const formData= new FormData()
-      formData.append('courseData',JSON.stringify(courseData))
-      formData.append('image',image)
+      const formData = new FormData();
+      formData.append("courseData", JSON.stringify(courseData));
+      formData.append("image", image);
 
-      const token = await getToken()
-      const {data}= await axios.post(backendUrl+'/api/educator/add-course', {formData}, {headers:{Authorization:`Bearer ${token}`}} );
+      const token = await getToken();
+      const { data } = await axios.post(
+        `${backendUrl}/api/educator/add-course`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       if (data.success) {
-        toast.success(data.message)
-        setCourseTitle('')
-        setCoursePrice(0)
-        setDiscount(0)
-        setImage(null)
-        setChapters([])
-        quillRef.current.root.innerHTML=''
-      }else{
-        toast.error(data.message)
+        toast.success(data.message);
+        setCourseTitle("");
+        setCoursePrice(0);
+        setDiscount(0);
+        setImage(null);
+        setChapters([]);
+        quillRef.current.root.innerHTML = "";
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
-      
+      toast.error(error.message);
     }
-  }
+  };
 
   useEffect(() => {
     if (!quillRef.current && editorRef.current) {
@@ -174,11 +185,11 @@ const AddCouse = () => {
 
           <div className="flex md:flex-row flex-col items-center gap-3">
             <p>Course Thumbnail</p>
-            <label htmlFor="thumbanilImage" className="flex items-center gap-3">
+            <label htmlFor="thumbnailImage" className="flex items-center gap-3">
               <img src={assets.file_upload_icon} alt="" className="p-3 bg-blue-500 rounded" />
               <input
                 type="file"
-                id="thumbanilImage"
+                id="thumbnailImage"
                 onChange={(e) => setImage(e.target.files[0])}
                 accept="image/*"
                 hidden
@@ -217,7 +228,7 @@ const AddCouse = () => {
                     className={`mr-2 cursor-pointer transition-all ${
                       chapter.collapsed && "-rotate-90"
                     }`}
-                    onClick={()=>handleChapter('toggle',chapter.chapterId)}
+                    onClick={() => handleChapter("toggle", chapter.chapterId)}
                   />
                   <span className="font-semibold">
                     {index + 1}
@@ -225,7 +236,7 @@ const AddCouse = () => {
                   </span>
                 </div>
                 <span className="text-gray-500">{chapter.chapterContent.length}Lectures</span>
-                <img onClick={()=>handleChapter('remove',chapter.chapterId)} src={assets.cross_icon} alt="" className="cursor-pointer" />
+                <img onClick={() => handleChapter("remove", chapter.chapterId)} src={assets.cross_icon} alt="" className="cursor-pointer" />
               </div>
               {!chapter.collapsed && (
                 <div className="p-4">
@@ -238,10 +249,10 @@ const AddCouse = () => {
                         </a>
                         - {lecture.isPreviewFree ? "Free Preview" : "paid"}
                       </span>
-                      <img onClick={()=>handleLecture('remove',chapter.chapterId, lectureIndex)} src={assets.cross_icon} alt="" className="cursor-pointer" />
+                      <img onClick={() => handleLecture("remove", chapter.chapterId, lectureIndex)} src={assets.cross_icon} alt="" className="cursor-pointer" />
                     </div>
                   ))}
-                  <div onClick={()=>handleLecture('add',chapter.chapterId)} className="inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2">
+                  <div onClick={() => handleLecture("add", chapter.chapterId)} className="inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2">
                     + Add Lecture
                   </div>
                 </div>
@@ -320,7 +331,7 @@ const AddCouse = () => {
                   />
                 </div>
 
-                <button onClick={addLecture}  type="button" className="w-full bg-blue-400 text-white px-4 py-2 rounded">
+                <button onClick={addLecture} type="button" className="w-full bg-blue-400 text-white px-4 py-2 rounded">
                   Add
                 </button>
 
