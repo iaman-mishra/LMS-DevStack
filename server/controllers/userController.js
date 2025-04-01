@@ -136,11 +136,11 @@ export const addUserRating = async (req, res) => {
     if (!user || !user.enrolledCourses.includes(courseId)) {
         res.json({sucess:false, message:'User has not purchased this course.'});
     }
-    const existingRatingIndex = course.courseRtaings.findIndex(r => r.userId === userId);
+    const existingRatingIndex = course.courseRatings.findIndex(r => r.userId === userId);
     if (existingRatingIndex>-1) {
-        course.courseRtaings[existingRatingIndex].rating = rating
+        course.courseRatings[existingRatingIndex].rating = rating
     }else{
-        course.courseRtaings.push({userId, rating});
+        course.courseRatings.push({userId, rating});
     }
     await course.save();
     return res.json({sucess:true, message:'Rating added'})

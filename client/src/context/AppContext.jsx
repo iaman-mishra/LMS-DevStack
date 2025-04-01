@@ -23,10 +23,9 @@ export const AppContextProvider = (props) => {
   const fetchAllCouses = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/course/all");
-      console.log(data);
 
-      if (data.success) {
-        SetAllCourses(data.couses);
+      if (data.sucess) {
+        SetAllCourses(data.courses);
       } else {
         toast.error(data.message);
       }
@@ -35,6 +34,7 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  
   // fetcjh user data
   const fetchUserData = async () => {
     if (user.publicMetadata.role === "educator") {
@@ -55,8 +55,11 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  console.log(allCourses);
-  
+  useEffect(() => {
+    fetchAllCouses();
+    
+  }, []);
+
 
   useEffect(() => {
     fetchAllCouses();
