@@ -34,6 +34,8 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  // console.log("all couses",allCourses);
+  
   
   // fetcjh user data
   const fetchUserData = async () => {
@@ -119,12 +121,12 @@ export const AppContextProvider = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (data.success) {
-        SetEnrolledCourses(data.enrolledCourses.reverse());
+        SetEnrolledCourses(data.enrolledCourses?.reverse() || []);
       } else {
         toast.error(data.message);
       } 
     } catch (error) {
-      toast.error(data.message);
+      toast.error(error.message);
     }
   };
 
