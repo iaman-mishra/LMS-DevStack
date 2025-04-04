@@ -57,7 +57,6 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     fetchAllCouses();
-    
   }, []);
 
 
@@ -123,7 +122,7 @@ export const AppContextProvider = (props) => {
         SetEnrolledCourses(data.enrolledCourses.reverse());
       } else {
         toast.error(data.message);
-      }
+      } 
     } catch (error) {
       toast.error(data.message);
     }
@@ -146,6 +145,7 @@ export const AppContextProvider = (props) => {
     SetUserData,
     getToken,
     fetchAllCouses,
+    fetchUserData
   };
 
   return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;

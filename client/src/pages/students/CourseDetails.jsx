@@ -25,14 +25,15 @@ const CourseDetails = () => {
     currency,
     backendUrl,
     userData,
-    getToken
+    getToken,
+    fetchUserData
   } = useContext(AppContext);
 
   // fetch course data
   const fetchCourseData = async () => {
     try {
       const { data } = await axios.get(backendUrl + `/api/course/${id}`);
-      console.log("data is here", data);
+     
       if (data.success) {
         setCourseData(data.courseData);
       } else {
@@ -43,10 +44,9 @@ const CourseDetails = () => {
     }
   };
 
-  console.log("CourseDetails component is rendering");
 
   useEffect(() => {
-    fetchCourseData(); // Ensure fetchCourseData is called when the component mounts
+    fetchCourseData();
   }, [id]);
 
   const enrollCourse = async () => {
@@ -54,7 +54,7 @@ const CourseDetails = () => {
       if (!userData) {
         return toast.warn('Login to Enroll')
       }
-      if (isAlreadyEnrolled) {
+      if (isEnrolled) {
         return toast.warn('Already Enrolled')
       }
       const token = await getToken();
@@ -70,12 +70,11 @@ const CourseDetails = () => {
     }
   }
 
-  console.log("Course data", courseData);
 
 
   useEffect(() => {
-    if (userData && courseData) {
-      setIsAlreadyEnrolled(userData.enrolledCourses.includes(courseData._id))
+    if (userData && courseData && Array.isArray(userData.enrolledCourses)) {
+      setIsEnrolled(userData.enrolledCourses.includes(courseData._id));
     }
   }, [userData, courseData]);
 
