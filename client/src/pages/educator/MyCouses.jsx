@@ -1,24 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import Loading from '../../components/students/Loading';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const MyCouses = () => {
-  const { currency, allCourses, fetchAllCouses } = useContext(AppContext);
+  const { currency, backendUrl, isEducator,getToken } = useContext(AppContext);
   const [courses, setCourses] = useState(null);
 
-  // Fetch all courses on mount
-  useEffect(() => {
-    fetchAllCouses();
-  }, []);
-
-  // Sync with context when allCourses updates
-  useEffect(() => {
-    if (allCourses && allCourses.length > 0) {
-      setCourses(allCourses);
+  const fetchEducatorCourses = async () => {
+    try {
+      const token = await getToken();
+      console.log(token);
+      const {data}=  await axios.get(backendUrl + '/api/educator/courses',{headers:{Authorization:`Bearer ${token}`}});
+      data.success && setCourses(data.courses);
+    } catch (error) {
+      toast.error(error.message);
     }
-  }, [allCourses]);
+  }
 
-  // Loading state while courses are not ready
+  useEffect(() => {
+    if (isEducator) {
+      fetchEducatorCourses();
+    }
+  }, [isEducator]);
+
+  
   if (!courses) {
     return <Loading />;
   }
