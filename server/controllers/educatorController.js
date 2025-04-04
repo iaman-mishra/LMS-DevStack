@@ -12,7 +12,7 @@ export const updateRoleToEducator = async (req, res) => {
         role: "educator",
       },
     });
-    res.json({ sucess: true, message: "You can publish a course now" });
+    res.json({ success: true, message: "You can publish a course now" });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -38,7 +38,7 @@ export const addCourse = async (req, res) => {
     await newCourse.save();
     res.json({success:true, message:'Couse Added'})
   } catch (error) {
-    res.json({sucess:false, message:error.message})
+    res.json({success:false, message:error.message})
   }
 };
 
@@ -84,12 +84,12 @@ export const educatorDashboardData = async (req, res)=>{
         );
       });
 
-      res.json({sucess:true , dashboardData:{
+      res.json({success:true , dashboardData:{
         totalEarnings, enrolledStudentsData, totalCourses
       }})
     }
   } catch (error) {
-    res.json({sucess:false, message:error.message});
+    res.json({success:false, message:error.message});
   }
 }
 
@@ -113,9 +113,9 @@ export const getEnrolledStudentsData = async(req, res) =>{
       }
     ));
 
-    res.json({sucess:true, enrolledStudents});
+    res.json({success:true, enrolledStudents});
 
   } catch (error) {
-    res.json({sucess:false, message:error.message});
+    res.json({success:false, message:error.message});
   }
 }
