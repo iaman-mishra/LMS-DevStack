@@ -22,9 +22,13 @@ const Navbar = () => {
   const { navigate, isEducator, SetIsEducator, backendUrl, getToken } = useContext(AppContext);
 
   const becomeEducator = async () => {
+    
     try {
       if (isEducator) {
         navigate("/educator");
+        return;
+      }else{
+        toast.info("Contacting admin to become educator...");
         return;
       }
       const token = await getToken();
