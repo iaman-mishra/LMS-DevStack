@@ -117,6 +117,7 @@ export const AppContextProvider = (props) => {
   const fetchEnrolledCourses = async () => {
     try {
       const token = await getToken();
+      if (!token) return;
       const { data } = await axios.get(backendUrl + "/api/user/enrolled-courses", {
         headers: { Authorization: `Bearer ${token}` },
       });
