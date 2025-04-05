@@ -38,7 +38,7 @@ const courseSchema = new mongoose.Schema(
       },
     ],
     educator: { type: String, ref: "User", required: true },
-    enrolledStudents: [{ type: String, ref: "User" }],
+    enrolledStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" , default: [] }],
   },
   { timestamps: true, minimize: false }
 );
